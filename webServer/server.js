@@ -19,21 +19,31 @@ app.get('/toplist', function (req, res) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("keyTracker");
-    dbo.collection("users").find({}, { fields: { "username": 1, "total": 1, _id: 0 } }).sort({ total: -1 }).limit(10).toArray((err, result) => {
-      console.log(result);
-      res.status(200);
-      res.send(result);
-    });
+
+    //Getting the users with most keypresses
+    dbo.collection("users").find({},
+      { fields: { "username": 1, "total": 1, _id: 0 } })
+      .sort({ total: -1 })
+      .limit(10)
+      .toArray((err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.status(200);
+        res.send(result);
+      });
   });
 });
 
 
 app.get('/getdata', (req, res) => {
   MongoClient.connect(url, function (err, db) {
+    if (err) throw err;
     var dbo = db.db("keyTracker");
-    var query = { username: req.header("username"), password: req.header("password") };
 
+    //getting data for one user
+    var query = { username: req.header("username"), password: req.header("password") };
     dbo.collection("users").findOne(query, function (err, result) {
+      if (err) throw err;
       if (result !== null) {
         res.status(200);
         res.send(result.data);
@@ -56,72 +66,58 @@ app.post('/saveclicks', function (req, res) {
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
     var dbo = db.db("keyTracker");
-    dbo.collection("users").findOne({ "username": body.username, "password": body.password }, function (err, result) {
 
-      if (err) throw err;
-      if (result !== null) {
-        userdata = result;
-        failed = false;
-      }
-      db.close();
+    //Checking if user exist
+    dbo.collection("users").findOne({ "username": body.username, "password": body.password },
+      function (err, result) {
+        if (err) throw err;
+        if (result !== null) {
+          userdata = result;
+          failed = false;
+        }
+        db.close();
 
-      if (!failed) {
-        MongoClient.connect(url, function (err, db) {
-          var dbo = db.db("keyTracker");
+        //if user exist
+        if (!failed) {
+          MongoClient.connect(url, function (err, db) {
+            var dbo = db.db("keyTracker");
+            var newTotal = 0;
+            for (let [key, value] of Object.entries(body.data)) {
+              console.log("key: " + key);
 
-          for (let [key, value] of Object.entries(body.data)) {
-            console.log("key: " + key);
+              //saving total new clicks
+              newTotal += value;
+              //update amount of key presses for one key
+              dbo.collection("users").updateOne(
+                { "username": body.username },
+                { $inc: { ['data.' + key]: value } },
+                function (err, result) {
+                  if (err) throw err;
+                });
+            }
 
+            //updating total new clicks
             dbo.collection("users").updateOne(
               { "username": body.username },
-              { $inc: { ['data.' + key]: value } },
+              { $inc: { total: newTotal } },
               function (err, result) {
                 if (err) throw err;
               });
-          }
-          db.close();
-          updateToplist(body.username)
-        });
-      }
-      if (!failed) {
-        res.status(202);
-        res.send();
-      } else {
-        res.status(401);
-        res.send();
-      }
-    });
+
+            db.close();
+          });
+        }
+        if (!failed) {
+          res.status(202);
+          res.send();
+        } else {
+          res.status(401);
+          res.send();
+        }
+      });
   });
 })
 
-function updateToplist(username) {
-  console.log(username);
-  MongoClient.connect(url, function (err, db) {
-    var dbo = db.db("keyTracker");
-    var query = { username: username };
-    dbo.collection("users").findOne(query, function (err, result) {
-      var totalKeys = 0;
-      for (const key of Object.keys(result.data)) {
-        totalKeys += result.data[key];
-      }
-      console.log(totalKeys + " total");
-      db.close();
-
-      MongoClient.connect(url, function (err, db) {
-        var dbo = db.db("keyTracker");
-        dbo.collection("users").updateOne(
-          { "username": username },
-          { $set: { total: totalKeys } },
-          function (err, result) {
-            if (err) throw err;
-            db.close();
-          });
-      });
-    });
-
-  });
-
-}
 
 app.post('/createuser', function (req, res) {
   var userExist = true;
@@ -132,6 +128,8 @@ app.post('/createuser', function (req, res) {
 
     if (err) throw err;
     var dbo = db.db("keyTracker");
+
+    //Checking if user exist
     dbo.collection("users").findOne({ "username": body.username }, function (err, result) {
       if (err) throw err;
       if (result !== null) {
@@ -145,8 +143,9 @@ app.post('/createuser', function (req, res) {
       if (!userExist) {
         MongoClient.connect(url, function (err, db) {
           if (err) throw err;
-
           var dbo = db.db("keyTracker");
+
+          //creating user if it dosent exist
           userObject = {
             "username": body.username,
             "password": body.password,
@@ -174,6 +173,7 @@ app.post('/createuser', function (req, res) {
 })
 
 app.post('/auth', function (req, res) {
+  //checking if username password combo is valid
   MongoClient.connect(url, function (err, db) {
     var dbo = db.db("keyTracker");
     var query = { username: req.body.username, password: req.body.password }
