@@ -4,6 +4,10 @@
 
 The web interface is used to display data and create a new account. The c# application is used to log keypresses. To use the C# application you must first create an account in the web interface
 
+## Misc info
+
+All querys to the database is done in /webServer/server.js
+
 ## run using public server
 
 1. Open http://83.233.156.14:5000/ in a webbrowser to run the web interface
