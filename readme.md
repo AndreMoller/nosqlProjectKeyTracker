@@ -1,4 +1,4 @@
-# Keyboard Activity Tracker
+# Keyboard Activity Tracker.
 
 ## How to use
 
