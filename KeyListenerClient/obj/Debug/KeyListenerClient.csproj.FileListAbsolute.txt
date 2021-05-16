@@ -1,0 +1,14 @@
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\bin\Debug\KeyListenerClient.exe.config
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\bin\Debug\KeyListenerClient.exe
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\bin\Debug\KeyListenerClient.pdb
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\bin\Debug\Gma.System.MouseKeyHook.dll
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\obj\Debug\KeyListenerClient.csprojAssemblyReference.cache
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\obj\Debug\KeyListenerClient.Properties.Resources.resources
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\obj\Debug\KeyListenerClient.csproj.GenerateResource.cache
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\obj\Debug\KeyListenerClient.csproj.CoreCompileInputs.cache
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\obj\Debug\KeyListenerClient.csproj.CopyComplete
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\obj\Debug\KeyListenerClient.exe
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\obj\Debug\KeyListenerClient.pdb
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\obj\Debug\KeyListenerClient.Form1.resources
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\andre\source\repos\KeyListenerClient\KeyListenerClient\bin\Debug\Newtonsoft.Json.xml
