@@ -12,7 +12,7 @@ Dont use real passwords. They are all saved in normal text. Not hashed
 
 ## run using public server
 
-1. Open http://83.233.156.14:5000/ in a webbrowser to run the web interface
+1. Open http://83.233.156.14:5000/ in a web browser to run the web interface
 
 2. Open the c# solution file with visual studio and run the application to run the C# application  
 
