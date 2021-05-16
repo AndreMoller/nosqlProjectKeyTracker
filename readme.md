@@ -8,6 +8,8 @@ The web interface is used to display data and create a new account. The c# appli
 
 All querys to the database is done in /webServer/server.js
 
+Dont use real passwords. They are all saved in normal text. Not hashed
+
 ## run using public server
 
 1. Open http://83.233.156.14:5000/ in a webbrowser to run the web interface
