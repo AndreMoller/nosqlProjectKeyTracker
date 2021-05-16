@@ -2,11 +2,13 @@
 
 ## How to use
 
-The web interface is used to display data and create a new account. The c# application is used to logg keypresses. To use the C# application you must first create an account in the web interface
+The web interface is used to display data and create a new account. The c# application is used to log keypresses. To use the C# application you must first create an account in the web interface
 
 ## run using public server
 
-1. Open artefacts and run ___ and ___. ____ is the application that loggs keys. ___ is used to create account and view data from __
+1. Open http://83.233.156.14:5000/ in a webbrowser to run the web interface
+
+2. Open the c# solution file with visual studio and run the application to run the C# application  
 
 ## run localy
 
